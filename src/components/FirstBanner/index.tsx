@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { FaPlayCircle } from "react-icons/fa";
@@ -5,6 +7,13 @@ import { FaPlayCircle } from "react-icons/fa";
 const headerHeight = 80;
 
 export default function FirstBanner() {
+  const handleClickScroll = () => {
+    const element = document.getElementById("video");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       className="flex items-center xl:justify-between xl:px-32 md:px-32 px-12 justify-center text-nowrap"
@@ -32,13 +41,13 @@ export default function FirstBanner() {
           >
             Saiba Mais
           </Link>
-          <Link
-            href={"video"}
+          <button
             className="flex font-normal text-lg items-center gap-1 underline hover:scale-105 duration-300"
+            onClick={handleClickScroll}
           >
             <FaPlayCircle />
             Assista ao vídeo
-          </Link>
+          </button>
         </div>
       </div>
       <div className="hidden custom-xl:block">

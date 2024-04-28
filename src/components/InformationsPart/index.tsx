@@ -5,7 +5,10 @@ import React from "react";
 
 export default function InformationsPart() {
   return (
-    <section className="xl:h-screen h-screen xl:px-20 lg:px-16 md:px-12 sm:px-12 px-4 flex flex-col justify-center py-5">
+    <section
+      className="xl:h-screen h-screen xl:px-20 lg:px-16 md:px-12 sm:px-12 px-4 flex flex-col justify-center py-5"
+      id="video"
+    >
       <div className="flex xl:justify-between justify-center">
         <section className="flex flex-col justify-between gap-10">
           <div className="xl:text-4xl lg:text-4xl md:text-3xl text-2xl">
