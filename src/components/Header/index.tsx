@@ -3,24 +3,26 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import IconHeader from "./icon-header.svg";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { FiChevronDown } from "react-icons/fi";
+import IconHeader from "./icon-header.svg";
 
-const Header = () => {
-  // State to manage the navbar's visibility
-  const [nav, setNav] = useState(false);
+interface NavItem {
+  id: number;
+  text: string;
+  href: string;
+  submenu?: SubItem[];
+}
 
-  // Toggle function to handle the navbar's display
-  const handleNav = () => {
-    setNav(!nav);
-  };
+interface SubItem {
+  text: string;
+  href: string;
+}
 
-  function Logo() {
-    return (
-      <Link
-        href={"/"}
-        className="flex items-center gap-4 opacity-95 hover:scale-105 transition-all duration-400"
-      >
+function Logo() {
+  return (
+    <Link href={"/"}>
+      <div className="flex items-center gap-4 opacity-95 hover:scale-105 transition-all duration-400">
         <Image
           className="image hover:rotate-6 hover:scale-105 transition-transform duration-300"
           src={IconHeader}
@@ -30,40 +32,102 @@ const Header = () => {
         <p className="text-white font-medium text-xl tracking-widest text-center position">
           S E N A M U N
         </p>
-      </Link>
-    );
-  }
+      </div>
+    </Link>
+  );
+}
 
-  // Array containing navigation items
-  const navItems = [
-    { id: 1, text: "Sobre Nós", href: "sobre-nos" },
-    { id: 2, text: "SenaMUN 2024", href: "simulação" },
-    { id: 3, text: "Fale conosco", href: "fale-conosco" },
+const Header: React.FC = () => {
+  const [nav, setNav] = useState(false);
+  const [showSubmenu, setShowSubmenu] = useState<number | null>(null);
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+
+  const handleNav = () => {
+    setNav(!nav);
+  };
+
+  const toggleSubmenu = (itemId: number) => {
+    setShowSubmenu(showSubmenu === itemId ? null : itemId);
+  };
+
+  const navItems: NavItem[] = [
+    {
+      id: 1,
+      text: "Sobre Nós",
+      href: "sobre-nos",
+      submenu: [
+        { text: "Quem somos", href: "/quem-somos" },
+        { text: "Secretariado", href: "/secretariado" },
+      ],
+    },
+    {
+      id: 2,
+      text: "SenaMUN 2024",
+      href: "simulação",
+      submenu: [
+        { text: "Comitês", href: "/comites" },
+        { text: "Equipe", href: "/secretariado" },
+        { text: "Cronograma", href: "/cronograma" },
+        { text: "Recursos", href: "/recursos" },
+        { text: "Mapa", href: "/mapa" },
+        { text: "Notícias", href: "/noticias" },
+      ],
+    },
+    { id: 3, text: "Fale conosco", href: "/fale-conosco" },
   ];
+
+  const handleMouseEnter = (itemId: number) => {
+    setHoveredItem(itemId);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItem(null);
+  };
 
   return (
     <div className="bg-blue-custom flex justify-between items-center h-20 mx-auto xl:px-32 px-4 text-white">
-      {/* Logo */}
       <div className="flex items-center xl:w-auto w-full justify-center">
         <Logo />
       </div>
 
-      {/* Desktop Navigation */}
-      <ul className="hidden xl:flex">
+      <div className="hidden xl:flex list-none">
         {navItems.map((item) => (
           <li
             key={item.id}
-            className="px-8 hover:text-yellow-custom transition-colors duration-300 tracking-widest hover:cursor-pointer"
+            className="relative px-8 hover:text-yellow-custom transition-colors duration-300 tracking-widest"
+            onMouseEnter={() => handleMouseEnter(item.id)}
+            onMouseLeave={handleMouseLeave}
           >
-            <Link href={item.href}>{item.text}</Link>
+            {item.submenu ? (
+              <div
+                onMouseEnter={() => toggleSubmenu(item.id)}
+                onMouseLeave={() => setShowSubmenu(null)}
+              >
+                {item.text}
+                {showSubmenu === item.id && (
+                  <ul className="absolute left-0 top-full bg-white shadow-md py-2 rounded-lg transition-transform duration-300">
+                    {item.submenu?.map((subitem, index) => (
+                      <li key={index} className="py-3 px-8">
+                        <Link href={subitem.href} className="text-nowrap">
+                          {subitem.text}
+                        </Link>
+                        <hr className="border-yellow-custom" />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <Link href={item.href}>{item.text}</Link>
+            )}
           </li>
         ))}
-      </ul>
-      {/* Mobile Navigation Icon */}
+      </div>
+
       <div onClick={handleNav} className="block xl:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
-      {/* Mobile Navigation Menu */}
+
       <ul
         className={
           nav
@@ -71,20 +135,45 @@ const Header = () => {
             : "ease-in-out w-[65%] duration-500 fixed top-0 bottom-0 left-[-100%]"
         }
       >
-        {/* Mobile Logo */}
         <div className="w-full text-3xl font-bold flex justify-center my-4">
           <Logo />
         </div>
 
         <hr className="mx-3" />
 
-        {/* Mobile Navigation Items */}
         {navItems.map((item) => (
           <li
             key={item.id}
-            className="p-4 border-b rounded-xl text-white hover:text-yellow-custom"
+            className="p-4 border-b rounded-xl text-white hover:text-yellow-custom items-center justify-between"
           >
-            <Link href={item.href}>{item.text}</Link>
+            {item.submenu ? (
+              <div
+                className="items-center flex justify-between"
+                onClick={() => toggleSubmenu(item.id)}
+              >
+                <span>{item.text}</span>
+                <FiChevronDown className="text-xl" />
+              </div>
+            ) : (
+              <Link href={item.href}>{item.text}</Link>
+            )}
+            {showSubmenu === item.id && (
+              <div className="">
+                <ul className="bg-sky-800 white mt-2 rounded-md">
+                  {item.submenu?.map((subitem, index) => (
+                    <li key={index} className="p-3">
+                      <Link
+                        href={subitem.href}
+                        className="text-white hover:text-yellow-custom"
+                      >
+                        {subitem.text}
+                        <hr className="border-white" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </li>
         ))}
       </ul>

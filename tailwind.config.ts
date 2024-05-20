@@ -20,6 +20,7 @@ const config: Config = {
       },
       screens: {
         "custom-xl": "1380px",
+        "full-xl": "1650px",
       },
     },
   },

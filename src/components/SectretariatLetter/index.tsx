@@ -1,11 +1,11 @@
 export default function SecretariatLetter2() {
   return (
-    <div className="bg-blue-custom py-12 2xl:px-96 xl:px-48 lg:px-40 md:px-32 flex flex-col justify-center h-auto 2xl:h-screen xl:h-screen lg:h-screen ">
-      <div className="mt-8 mb-8">
+    <div className="bg-blue-custom py-12 2xl:px-96 xl:px-48 lg:px-40 md:px-32 flex flex-col justify-center h-auto 2xl:h-screen xl:h-screen lg:h-fit ">
+      <div className="">
         <h1 className="text-white text-3xl xl:text-5xl font-semibold tracking-widest text-center py-5 border-y-4 border-yellow-custom mx-12 ">
           Carta do Secretariado
         </h1>
-        <p className="text-white text-md px-2 mt-6 text-justify mx-12">
+        <p className="text-white text-md px-2 mt-8 text-justify mx-12 leading-7">
           A equipe do Secretariado tem o prazer de dar as boas-vindas ao SenaMUN
           II!! Em 2022 tivemos nossa primeira edição, a qual foi um sucesso e
           estamos extremamente empolgados em abrir a nossa segunda conferência
