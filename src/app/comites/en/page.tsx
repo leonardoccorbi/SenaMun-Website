@@ -5,17 +5,28 @@ import Image from "next/image";
 
 const headerHeight = 80;
 
-export default function ComitesEnglish() {
+interface Committee {
+  _id: string;
+  language: string;
+  image?: string;
+  title: string;
+  subtitle: string;
+  format: string;
+  content: string;
+  classroom: string;
+}
+
+export default function ComitesEnlish() {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalData, setModalData] = useState({});
-  const [committees, setCommittees] = useState([]);
+  const [modalData, setModalData] = useState<Committee | null>(null);
+  const [committees, setCommittees] = useState<Committee[]>([]);
 
   const fetchCommittees = async () => {
     try {
       const res = await fetch("/api/committees");
-      const data = await res.json();
+      const data: Committee[] = await res.json();
       const filteredData = data.filter(
-        (committee: any) => committee.language === "en"
+        (committee) => committee.language === "en"
       );
       setCommittees(filteredData);
     } catch (error) {
@@ -27,7 +38,7 @@ export default function ComitesEnglish() {
     fetchCommittees();
   }, []);
 
-  const openModal = (item: any) => {
+  const openModal = (item: Committee) => {
     setModalData(item);
     setIsOpen(true);
   };
@@ -68,7 +79,7 @@ export default function ComitesEnglish() {
       </section>
       <div className="flex flex-col justify-center bg-gray-100 min-h-fit">
         <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 p-4 md:p-6 lg:p-10 justify-center">
-          {committees.map((committee: any) => (
+          {committees.map((committee) => (
             <div
               key={committee._id}
               className="bg-white rounded-lg shadow-xl h-auto"
@@ -106,7 +117,7 @@ export default function ComitesEnglish() {
         </div>
       </div>
 
-      {isOpen && (
+      {isOpen && modalData && (
         <div className="fixed z-10 inset-0 overflow-y-auto">
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div
