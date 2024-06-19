@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={clsx("bg-white", poppins.className)}>
         <Header />
-        <main>{children}</main>
+        <main className="h-screen">{children}</main>
         <Footer />
       </body>
     </html>
