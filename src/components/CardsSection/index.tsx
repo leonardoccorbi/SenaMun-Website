@@ -21,7 +21,7 @@ export default function CarsSection() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 justify-center mx-6 my-12">
         <Card title="Comitês" href="teste" icon={<BiWorld />} />
-        <Card title="Equipe" href="secretariado" icon={<FaPeopleGroup />} />
+        <Card title="Equipe" href="equipe" icon={<FaPeopleGroup />} />
         <Card
           title="Cronograma"
           href="teste"

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const headerHeight = 80;
 
-export default function ComitesPage() {
+export default function ComitesPt() {
   return (
     <div>
       <section

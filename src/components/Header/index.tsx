@@ -57,7 +57,7 @@ const Header: React.FC = () => {
       href: "sobre-nos",
       submenu: [
         { text: "Quem somos", href: "/quem-somos" },
-        { text: "Secretariado", href: "/secretariado" },
+        { text: "Secretariado", href: "/equipe" },
       ],
     },
     {
@@ -65,8 +65,12 @@ const Header: React.FC = () => {
       text: "SenaMUN 2024",
       href: "simulação",
       submenu: [
+        {
+          text: "Edições Anteriores",
+          href: "https://sites.google.com/view/senamun-ii/home?authuser=0",
+        },
         { text: "Comitês", href: "/comites" },
-        { text: "Equipe", href: "/secretariado" },
+        { text: "Equipe", href: "/equipe" },
         { text: "Cronograma", href: "/cronograma" },
         { text: "Recursos", href: "/recursos" },
         { text: "Mapa", href: "/mapa" },
