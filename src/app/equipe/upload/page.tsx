@@ -1,10 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+
+interface FormData {
+  name: string;
+  cargo: string;
+  role: string;
+  myFile: string;
+}
 
 export default function Upload() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     cargo: "",
     role: "sec",
@@ -13,7 +19,7 @@ export default function Upload() {
   const [error, setError] = useState("");
   const [registrationMessage, setRegistrationMessage] = useState("");
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const { name, cargo, role, myFile } = formData;
@@ -41,7 +47,9 @@ export default function Upload() {
     }
   };
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -49,16 +57,20 @@ export default function Upload() {
     });
   };
 
-  const handleFileChange = async (e: any) => {
-    const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    setFormData({
-      ...formData,
-      myFile: base64,
-    });
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const base64 = await convertToBase64(file);
+      setFormData({
+        ...formData,
+        myFile: base64 as string,
+      });
+    }
   };
 
-  const convertToBase64 = (file: any) => {
+  const convertToBase64 = (
+    file: File
+  ): Promise<string | ArrayBuffer | null> => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
