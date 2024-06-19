@@ -35,7 +35,7 @@ export default function ComitesPt() {
         </div>
       </section>
       <section className="bg-blue-custom h-auto xl:h-screen flex flex-col justify-center">
-        <div className="flex flex-col md:flex-row justify-center items-stretch xl:px-32 md:px-28 px-12 py-12 xl:py-32">
+        <div className="flex flex-col md:flex-row justify-center items-stretch xl:px-32 py-12 xl:py-32">
           {/* Card 1 */}
           <div className="flex flex-col p-8 border-2 rounded-2xl shadow-md mx-4 mb-8 md:mb-0 md:flex-grow">
             <h1 className="lg:text-5xl text-3xl text-yellow-custom font-semibold">
