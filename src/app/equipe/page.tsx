@@ -5,7 +5,7 @@ import { RiTeamLine } from "react-icons/ri";
 export default function Equipe() {
   return (
     <section className="h-fit">
-      <article className="flex flex-col lg:flex-row justify-between items-center px-[10vh] py-20">
+      <article className="flex flex-col lg:flex-row justify-between items-center lg:px-32 px-5 py-10">
         <div>
           <Image
             className="border-4 border-blue-custom rounded"
@@ -35,7 +35,7 @@ export default function Equipe() {
         </div>
       </article>
       <hr className="border-yellow-custom mx-40" />
-      <div className="px-40">
+      <div className="">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 justify-center mx-6 my-12">
           <Card
             title="Secretariado"

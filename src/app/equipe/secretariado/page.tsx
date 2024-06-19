@@ -23,7 +23,7 @@ export default function Secretariado() {
 
   return (
     <section className="h-fit bg-gray-100 flex justify-center items-center py-20 px-10">
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 min-h-screen">
         {team.map((member: any, index: number) => (
           <article
             key={index}
@@ -38,7 +38,7 @@ export default function Secretariado() {
                 height={300}
               />
             </div>
-            <div className="mt-2 text-nowrap">
+            <div className="mt-2">
               <h2 className="text-center text-xl tracking-wider font-semibold text-light-blue-custom">
                 {member.nome}
               </h2>
